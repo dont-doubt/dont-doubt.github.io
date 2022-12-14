@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="icon.png">
+	<title>Penta Tetris</title>
+	<style>
+		* {
+			padding: 20px;
+			margin: 0;
+			box-sizing: border-box
+		}
+		body {
+			overflow: hidden;
+			height: 100%;
+			/* background-image: linear-gradient(to right, #0c0f1d 0%, #00232f 100%); */
+			background-image: linear-gradient(30deg, #0c0f1d 0%, #00232f 100%);
+		}
+		.control-buttons {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			grid-gap: 12px;
+		}
+		.control-buttons__button {
+			background-color: #a4f;
+			width: 60px;
+			height: 60px;
+			border: solid 2px #c6f;
+			border-radius: 15px;
+			color: white;
+		}
+		.buttons-line {
+			display: flex;
+			grid-gap: 12px;
+		}
+		button {
+			background-color:#16161680;
+			border-color: #0D0D0D70;
+			border-radius: 20%;
+		}
+		button:hover {
+			background-color:#32323265;
+			border-color: #0D0D0D70;
+			border-radius: 20%;
+		}
+	</style>
+</head>
+<body>
+	<div style="background-color:#FFFFFF13; /*width:max-content;*/ overflow:auto; position:relative">
+		<canvas id="swapcanvas" style="float:left" onclick="buttonSwap()"></canvas>
+		<canvas id="canvas" style="float:left"></canvas>
+		<canvas id="nextcanvas" style="display:grid"></canvas>
+		<canvas id="scorecanvas" style="display:grid"></canvas>
+		<button class="reset" style="width:90px; height:90px; position:absolute; bottom:0" onclick="runTetris()"></button>
+	</div>
+
+	<!-- <div class="control-buttons">
+		<div class="buttons-line">
+			<button class="control-buttons__button" onclick="buttonFlipRight()">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" style="transform: rotate(270deg)">
+					<path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/>
+				</svg>
+			</button>
+		</div>
+		<div class="buttons-line">
+			<button class="control-buttons__button" id="left" onclick="buttonLeft()">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" style="transform: rotate(180deg)">
+					<path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/>
+				</svg>
+			</button>
+			<button class="control-buttons__button" id="down" onclick="buttonDown()">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" style="transform: rotate(90deg)">
+					<path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/>
+				</svg>
+			</button>
+			<button class="control-buttons__button" id="right" onclick="buttonRight()">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white">
+					<path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/>
+				</svg>
+			</button>
+		</div>
+	</div> -->
+	<script src="tetris.js"></script>
+</body>
+</html>
