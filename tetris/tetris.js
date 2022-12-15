@@ -12,6 +12,24 @@ CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
 	this.fill();
 }
 
+function hsv(h, s, v) {
+	let r, g, b, i, f, p, q, t;
+	i = Math.floor(h * 6);
+	f = h * 6 - i;
+	p = v * (1 - s);
+	q = v * (1 - f * s);
+	t = v * (1 - (1 - f) * s);
+	switch (i % 6) {
+			case 0: r = v, g = t, b = p; break;
+			case 1: r = q, g = v, b = p; break;
+			case 2: r = p, g = v, b = t; break;
+			case 3: r = p, g = q, b = v; break;
+			case 4: r = t, g = p, b = v; break;
+			case 5: r = v, g = p, b = q; break;
+	}
+	return `rgb(${Math.round(r * 255)},${Math.round(g * 255)},${Math.round(b * 255)})`;
+}
+
 class Shape {
 	constructor(template, color) {
 		this.template = template;
@@ -23,15 +41,15 @@ const X = 1;
 const shapes = [
 	new Shape([
 		[0, 0, 0, 0, 0],
-		[0, 0, X, X, 0],
-		[0, X, X, 0, 0],
+		[0, X, 0, 0, 0],
+		[0, X, X, X, 0],
 		[0, 0, X, 0, 0],
 		[0, 0, 0, 0, 0]
 	], "rgb(240,65,65)"),
 	new Shape([
 		[0, 0, 0, 0, 0],
-		[0, X, X, 0, 0],
-		[0, 0, X, X, 0],
+		[0, 0, 0, X, 0],
+		[0, X, X, X, 0],
 		[0, 0, X, 0, 0],
 		[0, 0, 0, 0, 0]
 	], "rgb(240,123,65)"),
@@ -51,16 +69,16 @@ const shapes = [
 	], "rgb(240,240,65)"),
 	new Shape([
 		[0, 0, 0, 0, 0],
-		[0, X, X, 0, 0],
-		[0, X, X, 0, 0],
 		[0, 0, X, 0, 0],
+		[0, 0, X, X, 0],
+		[0, 0, X, X, 0],
 		[0, 0, 0, 0, 0]
 	], "rgb(181,240,65)"),
 	new Shape([
 		[0, 0, 0, 0, 0],
-		[0, 0, X, X, 0],
-		[0, 0, X, X, 0],
 		[0, 0, X, 0, 0],
+		[0, X, X, 0, 0],
+		[0, X, X, 0, 0],
 		[0, 0, 0, 0, 0]
 	], "rgb(123,240,65)"),
 	new Shape([
@@ -93,9 +111,9 @@ const shapes = [
 	], "rgb(65,240,240)"),
 	new Shape([
 		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
 		[0, X, 0, X, 0],
 		[0, X, X, X, 0],
-		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0]
 	], "rgb(65,181,240)"),
 	new Shape([
@@ -156,7 +174,7 @@ class Figure {
 		this.a = [];
 		for (let x=0; x<5; x++)
 			for (let y=0; y<5; y++)
-				if (shape.template[x][y] != 0) this.a.push({x: x+3, y: y-1});
+				if (shape.template[y][x] != 0) this.a.push({x: x+3, y: y-1});
 		this.center = {x:5, y:1};
 		// if (!check) dead = true;
 	}
@@ -196,14 +214,15 @@ let setGameSpeed = (speed) => {
 }
 
 let createTetris = () => {
+	canvas.onclick = () => { if (dead) runTetris() }
 	canvas.width = sqX * size;
 	canvas.height = sqY * size;
 	canvasSwap.width = msize*5+3;
 	canvasSwap.height = msize*5+3;
 	canvasNext.width = msize*5+3;
-	canvasNext.height = msize*3*5+3;
-	canvasScore.height = 80;
-	canvasScore.width = 180;
+	canvasNext.height = msize*5*3+3;
+	canvasScore.height = 90;
+	canvasScore.width = 150;
 	setInterval(draw, 1000 / 24);
 	runTetris();
 }
@@ -244,17 +263,24 @@ let check = () => {
 	return false;
 }
 
+let addScore = (s) => {
+	score += s;
+	if (score >= gameSpeed * 1000) setGameSpeed(gameSpeed + 1);
+}
+
 let update = () => {
+	if (dead) return;
 	createCopy();
 	for (let i=0; i<5; i++) curr.a[i].y+=1;
 	curr.center.y += 1;
 	if (check()) {
 		if (!t) t = Date.now();
-		if (Date.now() - t > 70) {
+		if (Date.now() - t > 320) {
 			for (let i=0; i<5; i++) board[curr.a[i].y][curr.a[i].x] = curr.color;
 			curr = new Figure(next.shift());
 			next.push(getRandomShape());
-			score += 110 + Math.round(Math.random()*20)*10;
+			if (check()) { dead = true; return; }
+			addScore(110 + Math.round(Math.random()*20)*10);
 			for (let y=0; y<sqY; y++) {
 				let comp = true;
 				for (let x=0; x<sqX; x++) if (board[y][x] == -1) comp = false;
@@ -263,7 +289,7 @@ let update = () => {
 					let l = [];
 					for (let i=0; i<sqX; i++) l.push(-1);
 					board[0] = l;
-					score += 440 + Math.round(Math.random()*20)*10;
+					addScore(440 + Math.round(Math.random()*20)*10);
 				}
 			}
 			t = 0;
@@ -275,15 +301,13 @@ let update = () => {
 	draw();
 }
 
-let icb = 235;
-
 let draw = () => {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	// ctx.fillStyle = "rgb(22,22,29)";
 
 	const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-	gradient.addColorStop(0, "rgb(22,22,29)");
-	gradient.addColorStop(1, hsv(Date.now()/10000, 0.2, 0.3));
+	gradient.addColorStop(0, "rgb(15,15,21)");
+	gradient.addColorStop(1, hsv(Date.now()/10000, 0.2+(gameSpeed-1)/5, 0.3+(gameSpeed-1)/8));
 	ctx.fillStyle = gradient;
 	ctx.roundRect(0, 0, canvas.width, canvas.height, 10);
 
@@ -295,30 +319,36 @@ let draw = () => {
 			ctx.roundRect(curr.a[i].x * size + 1, curr.a[i].y * size + 1, size - 2, size - 2, 7);
 	
 	///// Доска /////
-	for (let y = 0; y < sqY; y++) {
-		for (let x = 0; x < sqX; x++) {
+	for (let y = 0; y < sqY; y++)
+		for (let x = 0; x < sqX; x++)
 			if (board[y][x] != -1) {
 				ctx.fillStyle = ctx.shadowColor = board[y][x];
 				ctx.roundRect(x * size + 1, y * size + 1, size - 2, size - 2, 7);
 			}
-		}
-	}
 	ctx.shadowBlur = 0;
+
+	if (dead) {
+		ctx.fillStyle = "rgba(10,10,10,0.1)";
+		ctx.roundRect(0, 0, canvas.width, canvas.height, 10);
+		ctx.fillStyle = "rgb(242,242,242)";
+		ctx.font = "bold 62px serif";
+		ctx.textAlign = "center";
+		ctx.fillText("Game over!", canvas.width / 2, canvas.height / 2);
+		ctx.font = "bold 42px serif";
+		ctx.fillText("Press to restart", canvas.width / 2, canvas.height / 2 + 70);
+	}
 
 	///// Замена фигуры /////
 	ctxSwap.clearRect(0, 0, canvasSwap.width, canvasSwap.height);
 	ctxSwap.fillStyle = gradient;
 	ctxSwap.roundRect(0, 0, canvasSwap.width, canvasSwap.height, 10);
-	if (swap != null) {
-		for (let x=0; x<5; x++) {
-			for (let y=0; y<5; y++) {
+	if (swap != null)
+		for (let x=0; x<5; x++)
+			for (let y=0; y<5; y++)
 				if (swap.template[x][y] != 0) {
 					ctxSwap.fillStyle = swap.color;
 					ctxSwap.roundRect(x * msize + 2, y * msize + 2, msize - 1, msize - 1, 5);
 				}
-			}
-		}
-	}
 
 	///// Последующие фигуры /////
 	ctxNext.clearRect(0, 0, canvasNext.width, canvasNext.height);
@@ -326,14 +356,12 @@ let draw = () => {
 	ctxNext.roundRect(0, 0, canvasNext.width, canvasNext.height, 10);
 	for (let i=0; i<3; i++) {
 		let shape = next[i];
-		for (let x=0; x<5; x++) {
-			for (let y=0; y<5; y++) {
+		for (let x=0; x<5; x++)
+			for (let y=0; y<5; y++)
 				if (shape.template[x][y] != 0) {
 					ctxNext.fillStyle = shape.color;
 					ctxNext.roundRect(x * msize + 2, i*5*msize + y * msize + 2, msize - 1, msize - 1, 5);
 				}
-			}
-		}
 	}
 
 	///// Счёт //////
@@ -341,7 +369,7 @@ let draw = () => {
 	ctxScore.fillStyle = gradient;
 	ctxScore.roundRect(0, 0, canvasScore.width, canvasScore.height, 10);
 	ctxScore.font = "bold 22px serif";
-	ctxScore.fillStyle = "rgba(200,200,200,242)";
+	ctxScore.fillStyle = "rgb(200,200,200)";
 	ctxScore.fillText("score:", 18, 28);
 	ctxScore.font = "bold 43px serif";
 	ctxScore.fillStyle = "rgb(223,223,233)";
@@ -349,6 +377,7 @@ let draw = () => {
 }
 
 let buttonLeft = () => {
+	if (dead) return;
 	createCopy();
 	for (let i=0; i<5; i++) curr.a[i].x -= 1;
 	curr.center.x -= 1;
@@ -356,6 +385,7 @@ let buttonLeft = () => {
 	draw();
 }
 let buttonRight = () => {
+	if (dead) return;
 	createCopy();
 	for (let i=0; i<5; i++) curr.a[i].x += 1;
 	curr.center.x += 1;
@@ -363,34 +393,43 @@ let buttonRight = () => {
 	draw();
 }
 let buttonDown = () => {
+	if (dead) return;
 	createCopy();
 	for (let i=0; i<5; i++) curr.a[i].y += 1;
 	curr.center.y += 1;
 	check();
 	draw();
 }
-let buttonFlipLeft = () => {
-	createCopy();
-	for (let i=0; i<5; i++) {
-		let x = curr.a[i].y - curr.center.y;
-		let y = curr.a[i].x - curr.center.x;
-		curr.a[i].x = curr.center.x + x;
-		curr.a[i].y = curr.center.y - y;
+/* Проверки:
+ *             x
+ *      -2 -1  0  1  2
+ *   -2     15 11 14
+ *   -1  19 10 4  9  18
+ * y  0  17 6  1  5  16
+ *    1  21 8  2  7  20
+ *    2     13 3  12
+ */
+const checks = [[0,0], [0,1], [0,2], [0,-1], [1,0], [-1,0], [1,1], [-1,1], [1,-1], [-1,-1], [0,-2], [1,2], [-1,2], [1,-2], [-1,-2], [2,0], [-2,0], [2,-1], [-2,-1], [2,1], [-2,1]]
+let buttonFlip = () => {
+	if (dead) return;
+	for (let c of checks) {
+		createCopy();
+		for (let i=0; i<5; i++) {
+			let x = curr.a[i].y - curr.center.y;
+			let y = curr.a[i].x - curr.center.x;
+			curr.a[i].x = curr.center.x - x + c[0];
+			curr.a[i].y = curr.center.y + y + c[1];
+		}
+		if (!check()) {
+			curr.center.x += c[0];
+			curr.center.y += c[1];
+			break;
+		}
 	}
-	if (!check()) t = 0;
+	t = 0;
 	draw();
 }
-let buttonFlipRight = () => {
-	createCopy();
-	for (let i=0; i<5; i++) {
-		let x = curr.a[i].y - curr.center.y;
-		let y = curr.a[i].x - curr.center.x;
-		curr.a[i].x = curr.center.x - x;
-		curr.a[i].y = curr.center.y + y;
-	}
-	if (!check()) t = 0;
-	draw();
-}
+
 let buttonSwap = () => {
 	if (!swapped) {
 		let s = curr.shape;
@@ -400,6 +439,7 @@ let buttonSwap = () => {
 			curr = new Figure(next.shift());
 			next.push(getRandomShape());
 		}
+		if (check()) { dead = true; return; }
 		swap = s;
 		swapped = true;
 	}
@@ -411,41 +451,8 @@ onkeydown = (event) => {
 	if (key == "ArrowLeft" || key == "a") buttonLeft();
 	else if (key == "ArrowRight" || key == "d") buttonRight();
 	else if (key == "ArrowDown" || key == "s") buttonDown();
-	else if (key == "ArrowUp" || key == "w") buttonFlipRight();
+	else if (key == "ArrowUp" || key == "w") buttonFlip();
 	else if (key == "Enter" || key == "f") buttonSwap();
 }
 
 createTetris();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function hsv(h, s, v) {
-	let r, g, b, i, f, p, q, t;
-	if (arguments.length === 1) s = h.s, v = h.v, h = h.h;
-	i = Math.floor(h * 6);
-	f = h * 6 - i;
-	p = v * (1 - s);
-	q = v * (1 - f * s);
-	t = v * (1 - (1 - f) * s);
-	switch (i % 6) {
-			case 0: r = v, g = t, b = p; break;
-			case 1: r = q, g = v, b = p; break;
-			case 2: r = p, g = v, b = t; break;
-			case 3: r = p, g = q, b = v; break;
-			case 4: r = t, g = p, b = v; break;
-			case 5: r = v, g = p, b = q; break;
-	}
-	return `rgb(${Math.round(r * 255)},${Math.round(g * 255)},${Math.round(b * 255)})`;
-}

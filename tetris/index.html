@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100%">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,15 +8,18 @@
 	<title>Penta Tetris</title>
 	<style>
 		* {
-			padding: 20px;
 			margin: 0;
-			box-sizing: border-box
+			box-sizing: border-box;
+		}
+		canvas,button {
+			padding: 20px;
+			/* filter: drop-shadow(0 0 20px 10px #1b1b1b28); */
+			filter: drop-shadow(0 0 20px #000000);
 		}
 		body {
 			overflow: hidden;
 			height: 100%;
-			/* background-image: linear-gradient(to right, #0c0f1d 0%, #00232f 100%); */
-			background-image: linear-gradient(30deg, #0c0f1d 0%, #00232f 100%);
+			background-image: linear-gradient(30deg, #1f253f 0%, #003d52 30%, #db31db 100%);
 		}
 		.control-buttons {
 			display: flex;
@@ -38,6 +41,7 @@
 			grid-gap: 12px;
 		}
 		button {
+			padding: 0;
 			background-color:#16161680;
 			border-color: #0D0D0D70;
 			border-radius: 20%;
@@ -50,13 +54,15 @@
 	</style>
 </head>
 <body>
-	<div style="background-color:#FFFFFF13; /*width:max-content;*/ overflow:auto; position:relative">
-		<canvas id="swapcanvas" style="float:left" onclick="buttonSwap()"></canvas>
-		<canvas id="canvas" style="float:left"></canvas>
-		<canvas id="nextcanvas" style="display:grid"></canvas>
-		<canvas id="scorecanvas" style="display:grid"></canvas>
-		<button class="reset" style="width:90px; height:90px; position:absolute; bottom:0" onclick="runTetris()"></button>
-	</div>
+	<canvas id="swapcanvas" style="float:left" onclick="buttonSwap()"></canvas>
+	<canvas id="canvas" style="float:left"></canvas>
+	<canvas id="nextcanvas" style="display:grid"></canvas>
+	<canvas id="scorecanvas" style="display:grid"></canvas>
+	<button style="width:80px; height:80px; display:grid; transform:translate(20px,20px)" onclick="runTetris()">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="white" style="width:100%; height:100%">
+			<path d="M 18,11 V 7 l -5,5 5,5 v -4 c 3.3,0 6,2.7 6,6 0,3.3 -2.7,6 -6,6 -3.3,0 -6,-2.7 -6,-6 h -2 c 0,4.4 3.6,8 8,8 4.4,0 8,-3.6 8,-8 0,-4.4 -3.6,-8 -8,-8 z"/>
+		</svg>
+	</button>
 
 	<!-- <div class="control-buttons">
 		<div class="buttons-line">
