@@ -307,7 +307,7 @@ let draw = () => {
 
 	const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 	gradient.addColorStop(0, "rgb(15,15,21)");
-	gradient.addColorStop(1, hsv(Date.now()/10000, 0.2+(gameSpeed-1)/5, 0.3+(gameSpeed-1)/8));
+	gradient.addColorStop(1, hsv(Date.now()/10000, 0.2+(gameSpeed-1)/7, Math.max(0.3+(gameSpeed-1)/11, 0.5)));
 	ctx.fillStyle = gradient;
 	ctx.roundRect(0, 0, canvas.width, canvas.height, 10);
 
