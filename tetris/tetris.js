@@ -331,10 +331,10 @@ let draw = () => {
 		ctx.fillStyle = "rgba(10,10,10,0.1)";
 		ctx.roundRect(0, 0, canvas.width, canvas.height, 10);
 		ctx.fillStyle = "rgb(242,242,242)";
-		ctx.font = "bold 62px serif";
+		ctx.font = "bold 62px sans-serif";
 		ctx.textAlign = "center";
 		ctx.fillText("Game over!", canvas.width / 2, canvas.height / 2);
-		ctx.font = "bold 42px serif";
+		ctx.font = "bold 42px sans-serif";
 		ctx.fillText("Press to restart", canvas.width / 2, canvas.height / 2 + 70);
 	}
 
@@ -368,7 +368,7 @@ let draw = () => {
 	ctxScore.clearRect(0, 0, canvasScore.width, canvasScore.height);
 	ctxScore.fillStyle = gradient;
 	ctxScore.roundRect(0, 0, canvasScore.width, canvasScore.height, 10);
-	ctxScore.font = "bold 22px serif";
+	ctxScore.font = "bold 22px sans-serif";
 	ctxScore.fillStyle = "rgb(200,200,200)";
 	ctxScore.fillText("score:", 18, 28);
 	ctxScore.font = "bold 43px serif";
