@@ -34,6 +34,11 @@ class Shape {
 	constructor(template, color) {
 		this.template = template;
 		this.color = color;
+		let len = 0;
+		for (let x = 0; x < 5; x++)
+		    for (let y = 0; y < 5; y++)
+			    if (template[x][y] != 0) len++
+	    this.length = len
 	}
 }
 
@@ -170,23 +175,31 @@ const shapes = [
 		
 		
 		
-		
-		
+
+
 	
 	new Shape([
-		[0, 0, X, 0, 0],
+		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0],
 		[0, 0, X, 0, 0],
 		[0, X, X, X, 0],
 		[0, 0, 0, 0, 0]
-	], "rgb(255,82,123)")
+	], "rgb(255,82,123)"),
 	new Shape([
 		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0],
-		[X, 0, 0, 0, X],
-		[X, X, 0, 0, X],
+		[0, 0, X, 0, 0],
+		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0]
 	], "rgb(27,0,183)"),
+    new Shape([
+        [0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 1, 0, 0],
+		[0, 0, 1, 0, 0],
+		[0, 0, 0, 0, 0]
+	
+	], "rgb(255,255,0"),
 	new Shape([
 		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0],
@@ -206,6 +219,7 @@ class Figure {
 				if (shape.template[y][x] != 0) this.a.push({x: x+3, y: y-1});
 		this.center = {x:5, y:1};
 		// if (!check) dead = true;
+		this.length = shape.length
 	}
 }
 
@@ -283,7 +297,7 @@ let createCopy = () => {
 }
 
 let check = () => {
-	for (let i=0; i<5; i++)
+	for (let i=0; i<curr.length; i++)
 		if (curr.a[i].x<0 || curr.a[i].x>=sqX || curr.a[i].y>=sqY || (curr.a[i].y>=0 && board[curr.a[i].y][curr.a[i].x] != -1)) {
 			for (let i=0; i<5; i++) curr.a[i] = copy.a[i];
 			curr.center = copy.center;
@@ -300,12 +314,12 @@ let addScore = (s) => {
 let update = () => {
 	if (dead) return;
 	createCopy();
-	for (let i=0; i<5; i++) curr.a[i].y+=1;
+	for (let i=0; i<curr.length; i++) curr.a[i].y+=1;
 	curr.center.y += 1;
 	if (check()) {
 		if (!t) t = Date.now();
 		if (Date.now() - t > 320) {
-			for (let i=0; i<5; i++) board[curr.a[i].y][curr.a[i].x] = curr.color;
+			for (let i=0; i<curr.length; i++) board[curr.a[i].y][curr.a[i].x] = curr.color;
 			curr = new Figure(next.shift());
 			next.push(getRandomShape());
 			if (check()) { dead = true; return; }
@@ -343,7 +357,7 @@ let draw = () => {
 	///// Падающая фигура /////
 	ctx.shadowBlur = 15;
 	ctx.fillStyle = ctx.shadowColor = curr.color;
-	for (let i=0; i<5; i++) 
+	for (let i=0; i<curr.length; i++) 
 		if (curr.a[i].y<sqY) 
 			ctx.roundRect(curr.a[i].x * size + 1, curr.a[i].y * size + 1, size - 2, size - 2, 7);
 	
@@ -408,7 +422,7 @@ let draw = () => {
 let buttonLeft = () => {
 	if (dead) return;
 	createCopy();
-	for (let i=0; i<5; i++) curr.a[i].x -= 1;
+	for (let i=0; i<curr.length; i++) curr.a[i].x -= 1;
 	curr.center.x -= 1;
 	if (!check()) t = 0;
 	draw();
@@ -416,7 +430,7 @@ let buttonLeft = () => {
 let buttonRight = () => {
 	if (dead) return;
 	createCopy();
-	for (let i=0; i<5; i++) curr.a[i].x += 1;
+	for (let i=0; i<curr.length; i++) curr.a[i].x += 1;
 	curr.center.x += 1;
 	if (!check()) t = 0;
 	draw();
@@ -424,7 +438,7 @@ let buttonRight = () => {
 let buttonDown = () => {
 	if (dead) return;
 	createCopy();
-	for (let i=0; i<5; i++) curr.a[i].y += 1;
+	for (let i=0; i<curr.length; i++) curr.a[i].y += 1;
 	curr.center.y += 1;
 	check();
 	draw();
@@ -443,7 +457,7 @@ let buttonFlip = () => {
 	if (dead) return;
 	for (let c of checks) {
 		createCopy();
-		for (let i=0; i<5; i++) {
+		for (let i=0; i<curr.length; i++) {
 			let x = curr.a[i].y - curr.center.y;
 			let y = curr.a[i].x - curr.center.x;
 			curr.a[i].x = curr.center.x - x + c[0];
