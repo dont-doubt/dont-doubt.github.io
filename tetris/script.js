@@ -166,25 +166,25 @@ const shapes = [
 		[0, 0, 0, 0, 0]
 	], "rgb(240,65,123)"),
 	
+	
+		
+		
+		
+		
+		
+	
 	new Shape([
-		[X, 0, 0, 0, 0],
-		[0, X, 0, 0, 0],
 		[0, 0, X, 0, 0],
-		[0, 0, X, X, 0],
-		[0, 0, 0, 0, 0]
-	], "rgb(255,82,123)"),
-	new Shape([
 		[0, 0, 0, 0, 0],
-		[0, X, 0, X, 0],
 		[0, 0, X, 0, 0],
-		[0, X, 0, X, 0],
+		[0, X, X, X, 0],
 		[0, 0, 0, 0, 0]
-	], "rgb(240,65,255)"),
+	], "rgb(255,82,123)")
 	new Shape([
 		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0],
-		[X, 0, X, 0, 0],
-		[X, 0, X, X, 0],
+		[X, 0, 0, 0, X],
+		[X, X, 0, 0, X],
 		[0, 0, 0, 0, 0]
 	], "rgb(27,0,183)"),
 	new Shape([
@@ -193,7 +193,7 @@ const shapes = [
 		[0, 0, X, X, 0],
 		[X, 0, X, X, 0],
 		[0, 0, 0, 0, 0]
-	], "rgb(111,111,111)")
+	], "rgb(255,111,111)")
 ]
 
 class Figure {
@@ -294,7 +294,7 @@ let check = () => {
 
 let addScore = (s) => {
 	score += s;
-	if (score >= gameSpeed * 7000) setGameSpeed(gameSpeed + 1);
+	if (score >= gameSpeed * 4000) setGameSpeed(gameSpeed + 1);
 }
 
 let update = () => {
