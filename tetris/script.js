@@ -265,7 +265,7 @@ let check = () => {
 
 let addScore = (s) => {
 	score += s;
-	if (score >= gameSpeed * 1000) setGameSpeed(gameSpeed + 1);
+	if (score >= gameSpeed * 7000) setGameSpeed(gameSpeed + 1);
 }
 
 let update = () => {
@@ -312,7 +312,7 @@ let draw = () => {
 	ctx.roundRect(0, 0, canvas.width, canvas.height, 10);
 
 	///// Падающая фигура /////
-	ctx.shadowBlur = 10;
+	ctx.shadowBlur = 15;
 	ctx.fillStyle = ctx.shadowColor = curr.color;
 	for (let i=0; i<5; i++) 
 		if (curr.a[i].y<sqY) 
