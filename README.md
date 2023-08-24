@@ -1,5 +1,5 @@
 # dont-doubt.github.io
-This is a drawer for custom websites
+These are my custom websites
 
 # Available websites:
 * [Tetris](https://dont-doubt.github.io/tetris)
