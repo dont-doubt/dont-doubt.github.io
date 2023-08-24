@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Arbitrage Calculator: Calculate how to guarantee a profit</title>
+	<link rel="canonical" href="https://arbitragecalc.com" />
+
+	<meta name="description"
+		content="Make your sports betting experience easier with our arbitrage calculator, calculate how much you should stake on different bets to guarantee a profit!">
+
+	<meta name="revised" content="Thursday, November 19th, 2020, 03:55 am" />
+	<meta name="revisit-after" content="7 days">
+
+	<link href="assets/images/arbitrageodds-favicon.ico" type="image/x-icon" rel="icon">
+	<link href="assets/css/bootstrap.min.css" rel="preload stylesheet" as="style" type="text/css">
+	<!-- <link href="assets/css/custom-v18.css" rel="preload stylesheet" as="style" type="text/css"> -->
+	<link href="assets/css/custom-v18.min.css" rel="preload stylesheet" as="style" type="text/css">
+	<link href="assets/css/responsive-v17.min.css" rel="preload stylesheet" as="style" type="text/css">
+	<link href="assets/css/font-awesome.min.css" type="text/css" media="all" rel="preload stylesheet" as="style" />
+	<link href="assets/css/perfect-scrollbar-v1.min.css" rel="preload stylesheet" as="style" type="text/css">
+	<link async href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&display=swap"
+		rel="preload stylesheet" as="style">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZF4XCVWQ78"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-ZF4XCVWQ78');
+	</script>
+</head>
+
+<body>
+	<div class="main-wrapper">
+		<!--header start-->
+		<header>
+			<div class="container">
+				<div class="logo">
+					<!-- <a href="https://arbitragecalc.com"> -->
+						<figure><img src="assets/images/arbitrage-calculator-logo-icon.svg" alt="Arbitrage Calculator Icon"
+								width="50" height="50" title="Arbitrage Calculator Icon"></figure>
+						<h1>
+							 Arbitrage 
+							 <span>CALCULATOR</span>
+							 <span style="font-weight: 500; color: #7f29c5; font-family: b2c-font;">WITH ROUNDING</span>
+						</h1>
+					<!-- </a> -->
+				</div>
+
+			</div>
+		</header>
+		<div class="mid-section">
+			<div class="container">
+				<div class="inner-section">
+					<div class="content-section">
+						<div class="aside-info">
+							<!-- Ненужное -->
+							<!--<div class="web-intro">
+								<p><strong>Welcome to the arbitrage calculator website.</strong> We have built all the tools you need to
+									make your sports betting (and specifically your arb) experience better! You savvy arber you! Below we
+									have an arbitrage calculator, also known as an arb calculator or a sure bet calculator and some more
+									information about arbitrages in general.</p>
+							</div>-->
+							<div class="quick-links">
+								<h2 class="title quick-title">Other Betting Calculators</h2>
+								<ul id="quick-scroll">
+									<li class="active-link"><a class="sidebar-nav-click" data-sidebar_nav="Arbitrage Calculator"
+											href="https://arbitragecalc.com" target="_blank">Arbitrage Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Acca Calculator" href="https://accacalc.com"
+											target="_blank">Acca Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Bonus Bet Calculator"
+											href="https://bonusbetcalculator.com" target="_blank">Bonus Bet Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Decimal to Fractional Odds"
+											href="https://decimaltofractionalodds.com" target="_blank">Decimal to Fractional Odds</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Dutching Calculator"
+											href="https://dutchingcalc.com" target="_blank">Dutching Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Fractional to Decimal Odds"
+											href="https://fractionaltodecimalodds.com" target="_blank">Fractional to Decimal Odds</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Hedge Calculator"
+											href="https://hedgecalculator.com" target="_blank">Hedge Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Hold Calculator" href="https://holdcalculator.com/"
+											target="_blank">Hold Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Kelly Criterion Calculator"
+											href="https://kellycriterioncalculator.com" target="_blank">Kelly Criterion Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Lay Bet Calculator"
+											href="https://laybetcalculator.com" target="_blank">Lay Bet Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Middle Calculator"
+											href="https://middlecalculator.com" target="_blank">Middle Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Moneyline Converter"
+											href="https://moneylineconverter.com/" target="_blank">Moneyline Converter</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Multi Calculator"
+											href="https://multibetcalculator.com" target="_blank">Multi Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Odds Converter"
+											href="https://bettingoddsconverter.com" target="_blank">Odds Converter</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Overround Calculator"
+											href="https://overroundcalculator.com" target="_blank">Overround Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Parlay Calculator"
+											href="https://freeparlaycalculator.com" target="_blank">Parlay Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Spread Converter"
+											href="https://spreadconverter.com/" target="_blank">Spread Converter</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Staking Calculator" href="https://stakingcalc.com"
+											target="_blank">Staking Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Strike Rate Calculator"
+											href="https://strikeratecalculator.com" target="_blank">Strike Rate Calculator</a></li>
+									<li><a class="sidebar-nav-click" data-sidebar_nav="Win Loss Calculator"
+											href="https://winlosscalculator.com" target="_blank">Win Loss Calculator</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="content-info">
+							<div class="inner-content">
+								<div class="content-col">
+									<div class="odds-claculate">
+										<div class="odds-content">
+											<h3 class="calc-title">Use the Arbitrage Calculator here</h3>
+											<div class="calc-section">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-col">
+															<div class="col-inner">
+																<h5 class="odds-title">Enter Odds &amp; Stake </h5>
+																<div class="bet-row">
+																	<div class="col-input-block arbitrage-bet-row" data-id="1">
+																		<label>Bet 1</label>
+																		<div class="input-odds"><input maxlength="10" class="form-input" type="text"
+																				id="odds_1" placeholder="Enter Bet 1 Odds" value=""
+																				onkeypress="return Validate(event)">
+																		</div>
+																	</div>
+																	<div class="col-input-block arbitrage-bet-row" data-id="2">
+																		<label>Bet 2</label>
+																		<div class="input-odds"><input maxlength="10" class="form-input" type="text"
+																				id="odds_2" placeholder="Enter Bet 2 Odds" value=""
+																				onkeypress="return Validate(event)">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-input-block">
+																	<label>Stake</label>
+																	<div class="input-odds"><input class="form-input" type="text" id="total_stake"
+																			placeholder="Enter Stake" value=""
+																			onkeypress="return isNumberKey(event);">
+																	</div>
+																</div>
+																<!-- =============== Округление =============== -->
+																<div class="col-input-block">
+																	<label>Round</label>
+																	<div class="input-odds"><input class="form-input" type="text" id="round_to"
+																			placeholder="Enter Round to (Optional)" value=""
+																			onkeypress="return isNumberKey(event);">
+																	</div>
+																</div>
+																<div class="col-input-block">
+																	<label>FieldID</label>
+																	<div class="input-odds"><input class="form-input" type="text" id="field_id"
+																			placeholder="Enter Field ID" value="1"
+																			onkeypress="return isNumberKey(event, false);">
+																	</div>
+																</div>
+																<h3 id="round_info" style="color: #463fa3; font-weight: bold; text-shadow: 0 0 12px #21212192; font-size: 21px;">Stake wasn't rounded</h3>
+																<!-- =============== Округление =============== -->
+															</div>
+														</div>
+														<div class="btn-odds">
+															<button type="button" class="btn btn-reset" id="add_more"><i class="fa fa-plus-circle"
+																	aria-hidden="true"></i>More Bets</button>
+															<button type="button" class="btn btn-reset" id="reset"><i class="fa fa-refresh"
+																	aria-hidden="true"></i> Reset</button>
+															<button type="button" class="btn btn-white" id="submit_arbitrage"><i><img
+																		src="assets/images/arbitrageodds-logo-icon.svg" width="22" height="22"
+																		alt="Calculate"></i>CALCULATE</button>
+															<input type="hidden" class="copy_content" id="copy_content" />
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-col">
+															<div class="col">
+																<h5 class="odds-title title-desk">Stake </h5>
+																<div class="stake-row">
+																	<h5 class="odds-title title-mob" id="stake_title_1">Stake Bet 1</h5>
+																	<div class="input-text"> <span class="text-input" id="stake_1">$0.00 </span> </div>
+																	<h5 class="odds-title title-mob" id="stake_title_2">Stake Bet 2</h5>
+																	<div class="input-text"> <span class="text-input" id="stake_2">$0.00 </span> </div>
+
+																</div>
+															</div>
+															<div class="col">
+																<h5 class="odds-title title-desk">Payout</h5>
+																<div class="payout-row">
+																	<h5 class="odds-title title-mob" id="payout_title_1">Payout Bet 1</h5>
+																	<div class="input-text"> <span class="text-input" id="payout_1">$0.00 </span> </div>
+																	<h5 class="odds-title title-mob" id="payout_title_2">Payout Bet 2</h5>
+																	<div class="input-text"> <span class="text-input" id="payout_2">$0.00 </span> </div>
+																</div>
+															</div>
+														</div>
+														<div class="odds-output">
+															<ul>
+																<li><samp>Total Payout:</samp> <span class="result-input" id="total_payout">$0.00</span></li>
+																<li><samp>Total Profit:</samp> <span class="result-input" id="total_profit">$0.00</span> </li>
+																<li><samp>ROI:</samp> <span class="result-input" id="roi">0.00 </span></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<!-- Share -->
+												<div class="share-code" style="display:none">
+													<h3 class="title">Show your friends</h3>
+													<div class="share-options">
+														<div class="col">
+															<a href="javascript:void(0);" class="social-btn twitter-btn" id="summary-twitter-btn"><i
+																	class="fa fa-twitter"></i><span>Twitter</span></a>
+														</div>
+														<div class="col">
+															<a href="javascript:void(0);" class="social-btn whatsapp-btn" id="summary-whatsapp-btn"><i
+																	class="fa fa-whatsapp"></i><span>WhatsApp</span></a>
+														</div>
+														<div class="col">
+															<a href="javascript:void(0);" class="social-btn copy-btn copy-code"
+																id="summary-copy-btn"><i class="fa fa-file-o"></i>
+																<span>Copy</span>
+																<!-- <span class="copy-tooltip">Link to the result is copied, feel free to share with your friends via other social platforms.</span> -->
+															</a>
+														</div>
+													</div>
+												</div>
+												<!-- Share -->
+											</div>
+										</div>
+
+										<div class="odds-intro">
+											<div class="calc-info">
+												<h3>How does the Arbitrage Calculator work?</h3>
+												<p>Our arbitrage calculator allows you to enter the <a class="wager-term-click"
+														data-wager_term="odds" href="https://wageringterms.com/definition/odds"
+														target="_blank">odds</a> of two (or more) different bets to determine how much you should <a
+														class="wager-term-click" data-wager_term="stake"
+														href="https://wageringterms.com/definition/stake" target="_blank">stake</a> on each to
+													guarantee a profit. If the ROI is negative, there is no profit available and you will have a
+													guaranteed loss. </p>
+											</div>
+											<!-- =============== Видео =============== -->
+											<!-- <div class="video-block">
+												<div class="video-outer">
+													<script src="https://fast.wistia.com/embed/medias/pf6faofnag.jsonp" async></script>
+													<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+													<div class="wistia_embed wistia_async_pf6faofnag">
+														<div class="wistia_swatch"><img src="https://fast.wistia.com/embed/medias/pf6faofnag/swatch"
+																alt="How To Use The Arbitrage Calculator" aria-hidden="true"
+																onload="this.parentNode.style.opacity=1;" /></div>
+													</div>
+												</div>
+											</div>-->
+											<!-- =============== Видео =============== -->
+										</div>
+									</div>
+
+									<div class="accordion-block">
+										<ul>
+											<li>
+												<h2 class="title">What is an Arbitrage Bet?</h2>
+												<div class="acc-content">
+													<p>An arbitrage (or <a class="wager-term-click" data-wager_term="arb"
+															href="https://wageringterms.com/definition/arb" target="_blank">arb</a> for short) also
+														known as '<a class="wager-term-click" data-wager_term="surebets"
+															href="https://wageringterms.com/definition/surebets" target="_blank">surebets</a>', '<a
+															class="wager-term-click" data-wager_term="surewins"
+															href="https://wageringterms.com/definition/surewins" target="_blank">surewins</a>' and '<a
+															class="wager-term-click" data-wager_term="miraclebets"
+															href="https://wageringterms.com/definition/miraclebets" target="_blank">miraclebets</a>'
+														are <a class="wager-term-click" data-wager_term="bet"
+															href="https://wageringterms.com/definition/bet" target="_blank">bet</a> types whereby a <a
+															class="wager-term-click" data-wager_term="bettor"
+															href="https://wageringterms.com/definition/bettor" target="_blank">bettor</a> wagers on a
+														series of events that guarantees a profit no matter the outcome of an event, or at worst,
+														guarantees that no money can be lost but a profit can still be made depending on the result
+														of that event.</p>
+													<p>Arbitrage bets work by taking advantage of discrepancies in prices of the same event
+														between different Sportsbooks in a way that can ensure the bettor can't lose money no matter
+														the outcome of the event.</p>
+												</div>
+											</li>
+											<li>
+												<h2 class="title">What is a sports arbitrage betting example?</h2>
+												<div class="acc-content">
+													<p>Arbitrage opportunities can pop up in <a class="wager-term-click"
+															data-wager_term="betting markets"
+															href="https://wageringterms.com/definition/betting-markets" target="_blank">betting
+															markets</a> for a variety of reasons, most commonly being a disagreement in <a
+															class="wager-term-click" data-wager_term="Sportsbook"
+															href="https://wageringterms.com/definition/sportsbook" target="_blank">Sportsbook</a>
+														opinions on a certain event.</p>
+													<p>For example, say an NBA game was being played between the Houston Rockets and the Cleveland
+														Cavaliers. 'Sportsbook A' may open up their market at:</p>
+													<p>Houston Rockets $1.50 (e.g -200)</p>
+													<p>Cleveland Cavaliers $2.50 (e.g +150)</p>
+													<p>And 'Sportsbook B' may open up their market at:</p>
+													<p>Houston Rockets $1.80 (e.g -125)</p>
+													<p>Cleveland Cavaliers $2.20 (e.g +120)</p>
+													<p>You can see here that there is a discrepancy in the odds, or a disagreement between the
+														sportsbooks <a class="wager-term-click" data-wager_term="over"
+															href="https://wageringterms.com/definition/over" target="_blank">over</a> the winning
+														chances of each team. In this scenario, the bettor could <a class="wager-term-click"
+															data-wager_term="place" href="https://wageringterms.com/definition/place"
+															target="_blank">place</a> $55.55 on the Houston Rockets with Sportsbook B, to receive a <a
+															class="wager-term-click" data-wager_term="payout"
+															href="https://wageringterms.com/definition/payout" target="_blank">payout</a> of $100 if
+														Houston wins and the bettor can place $40.00 on the Cleveland Cavaliers with Sportsbook A,
+														to also receive a payout of $100 if Cleveland wins.</p>
+
+													<p>In this scenario, no matter who wins the game, the bettor has outlaid $95.55, but will
+														receive back $100 regardless of the outcome. This is a sports betting arbitrage, an
+														opportunity to guarantee yourself a profit no matter the result (e.g + to your <a
+															class="wager-term-click" data-wager_term="bankroll"
+															href="https://wageringterms.com/definition/bankroll" target="_blank">bankroll</a>!)</p>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<h2 class="title">Arbitrage Betting Strategies</h2>
+									<p>There are many different strategies and methods to bet on Arbitrage Bets. This example will take
+										you through two of the main strategies of betting on arbitrage.</p>
+									<p><b>Example:</b> You have $100 and the New York Knicks are playing against the Boston Celtics. On
+										Sportsbook Z the Knicks are paying -125 to win, while on Sportsbook Y the Celtics are paying +150 to
+										win.</p>
+
+									<h2 class="title">Strategy A - How to make a profit regardless of the result?</h2>
+									<p>If the bettor was to place $41.86 on the Boston Celtics, and also place a bet of $58.14 on the New
+										York Knicks on the <a class="wager-term-click" data-wager_term="moneyline"
+											href="https://wageringterms.com/definition/moneyline" target="_blank">moneyline</a> market on the
+										two respective sportsbooks, they can ensure profit no matter the outcome. The bettor has placed a <a
+											class="wager-term-click" data-wager_term="total" href="https://wageringterms.com/definition/total"
+											target="_blank">total</a> of $100 in bets on both the Celtics and Knicks, but as shown in the
+										table below, they will be returned $104.65 no matter which team wins. Although this doesn't seem
+										like a lot of profit, this can be scaled to suit your bankroll and will earn the bettor a 4.65%
+										return on investment.</p>
+
+									<div class="table-calculator">
+										<table>
+											<tr>
+												<th>Sportsbook Z</th>
+												<th>Odds</th>
+												<th>Stake</th>
+												<th>Return</th>
+											</tr>
+											<tr>
+												<td>Boston Celtics</td>
+												<td>+150</td>
+												<td>$41.86</td>
+												<td>$104.65</td>
+											</tr>
+											<tr>
+												<th>Sportsbook Y</th>
+												<th></th>
+												<th></th>
+												<th></th>
+											</tr>
+											<tr>
+												<td>New York Knicks</td>
+												<td>-125</td>
+												<td>$58.14</td>
+												<td>$104.65</td>
+											</tr>
+											<tr>
+												<th></th>
+												<th></th>
+												<td><b>Total Stake</b> <br>$100</td>
+												<td><b>Profit</b> <br>$4.65</td>
+											</tr>
+										</table>
+									</div>
+
+									<p>This strategy is the safer option and can be used to win free money from your bets (see Risk of
+										Arbitrage betting at the end).</p>
+
+									<h2 class="title">Strategy B - How to increase your profit if you have a strong lean towards one
+										outcome?</h2>
+									<p>This strategy is used if the bettor believes they have an edge and thinks they know who is going to
+										win the game/market in their <a class="wager-term-click" data-wager_term="arbitrage bet"
+											href="https://wageringterms.com/definition/arbitrage-bet" target="_blank">arbitrage bet</a>. This
+										strategy increases your potential profit on your arbitrage bet, however, instead of walking <a
+											class="wager-term-click" data-wager_term="away" href="https://wageringterms.com/definition/away"
+											target="_blank">away</a> with free money there is a chance you will break even and not win
+										anything (or make a small loss).</p>
+									<p>In this example, the bettor believes that the Boston Celtics are going to win the game against the
+										New York Knicks and therefore is willing to earn minimal profit or break even at a chance to ensure
+										a slightly higher return on investment. By placing a $44.44 moneyline bet on the Celtics and a
+										$55.56 moneyline bet on the Knicks they have created their arbitrage opportunity. If the favoured
+										Boston Celtics win the matchup their bet will return them $111.10 securing the bettor a $11.10
+										profit (11.1% ROI), however if the New York Knicks win, the bettor will only return $100 therefore
+										breaking even and not winning or losing any money.</p>
+
+									<div class="table-calculator">
+										<table>
+											<tr>
+												<th>Sportsbook Z</th>
+												<th>Odds</th>
+												<th>Stake</th>
+												<th>Return</th>
+												<th>Profit</th>
+											</tr>
+											<tr>
+												<td>Boston Celtics</td>
+												<td>+150</td>
+												<td>$44.44</td>
+												<td>$111.10</td>
+												<td>Celtics Win = $11.10 Profit</td>
+											</tr>
+											<tr>
+												<th>Sportsbook Y</th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+											</tr>
+											<tr>
+												<td>New York Knicks</td>
+												<td>-125</td>
+												<td>$55.56</td>
+												<td>$100</td>
+												<td>Knick Win = $0 Profit (Break Even)</td>
+											</tr>
+										</table>
+									</div>
+
+									<p>This strategy is a riskier version of an arbitrage bet, however, if used successfully it does
+										ensure a greater profit for the bettor. To take this a step further, the bettor could use a Weighted
+										Arbitrage Bet where they place more money on the team they believe is going to win. While in this
+										scenario there is a chance you do lose some money, the purpose of the Weighted Arbitrage is to
+										maximise the return if you believe you have a better than decent chance of picking the winning team
+										or market. If you do feel like this is something you want to do, simply use the Arbitrage Calculator
+										above normally, then, assign a dollar amount on top you want to place on the team/market you believe
+										will win. This being, your money is weighted to one outcome. </p>
+
+									<h2 class="title">How to Find Arbitrage Bets Opportunities</h2>
+									<p>As sports betting and sportsbooks are becoming more mainstream and popular it has become harder to
+										find Arbitrage Bet opportunities. However, arbitrage betting isn't dead and there are still
+										opportunities waiting for you, here are some ways to help you find them: </p>
+
+									<h2 class="title">Manually</h2>
+									<p>It sounds simple, but it is possible to find arbitrage betting opportunities by manually comparing
+										sportsbooks odds against each other. Although this may be time-consuming, there are various tools on
+										the internet that can help you. For example, there are many different odds comparison sites and
+										tools that make it easier and faster to compare the odds on the same <a class="wager-term-click"
+											data-wager_term="markets" href="https://wageringterms.com/definition/markets"
+											target="_blank">markets</a> from different sportsbooks. Manually comparing and viewing different
+										odds is also a good way to get comfortable and gain a better understanding of sports betting markets
+										and sportsbooks. </p>
+
+									<h2 class="title">Software</h2>
+									<p>There is software available on the internet that automatically scans and detects arbitrage betting
+										opportunities. These can be helpful as they remove the manual work from finding arbitrage bets. A
+										good system/program has the potential to be a possible source of passive income. However, it would
+										be wise to identify proven and successful software, and beware of scams and software programs that
+										ask you to enter private/credit card information as there are possibly some fake programs out there.
+										We are working on some free tools that show potential arbitrage opportunities which we will release
+										soon.</p>
+
+									<h2 class="title">Sportsbooks Promotions</h2>
+									<p>An underrated method of finding arbitrage betting opportunities is taking advantage of sportsbooks
+										promotional offers. Often sportsbooks may offer promotions on various events that boost/increase the
+										odds of certain outcomes. When this happens there is often a maximum stake (amount of money you can
+										place on the promotion) that you can place on this event, however there is still usually free money
+										to be made. By being aware of the different sportsbooks that more commonly offer these promotions
+										you can maximise your chances to make a quick profit. However, beware that it is not uncommon for
+										sportsbooks to 'promo ban' customers who take advantage of their promotions (make it so that certain
+										sports bettors can't bet on their promotions). There are some ways to avoid this occurring such as
+										always using a different sportsbook to arbitrage your promo bet against, and by placing lots of
+										small bets (such as 1c, 2c if they accept those amounts) on heaps of different sports or races.
+										Please check out our <a class="wager-term-click" data-wager_term="Bonus Bet"
+											href="https://wageringterms.com/definition/bonus-bet" target="_blank">Bonus Bet</a> Calculator to
+										learn how to maximize your return on Bonus Bets. </p>
+
+									<h2 class="title">Risk of Arbitrage Betting</h2>
+									<p>Although Arbitrage betting may seem entirely risk-free, there are still sometimes some risks
+										associated with Arbitrage bets. This is because sometimes sportsbooks make mistakes or there may be
+										errors in the odds they release. </p>
+									<p>For example, all sportsbooks might be listing something at $1.05, except this one sportsbook which
+										has the odds for this outcome listed at $51 which is an obvious outlier. So by arbitraging this
+										heavy <a class="wager-term-click" data-wager_term="favorite"
+											href="https://wageringterms.com/definition/favorite" target="_blank">favorite</a> at $51 with the
+										correctly priced <a class="wager-term-click" data-wager_term="underdog"
+											href="https://wageringterms.com/definition/underdog" target="_blank">underdog</a> at $10 you seem
+										to be on track for a massive pay day. However, sportsbooks are able to void your bet on the error
+										odds at $51 (remove your bet and refund you your stake) which leaves you stuck heavily backing a $10
+										underdog on the other side of your arbitrage bet.</p>
+									<p>With this in mind when it comes to arbitrage betting it is best to stick to non-error opportunities
+										where there is usually a 1-5% guaranteed return. As often if the odds seem too good to be true they
+										are and it is an error with a high potential to be voided. With this being said it may still be
+										worthwhile placing single bets on favorites with error odds as if the sportsbooks void you get your
+										money back but if it isn't voided you have <a class="wager-term-click" data-wager_term="backed"
+											href="https://wageringterms.com/definition/backed" target="_blank">backed</a> a heavy favorite at
+										underdog odds and have a good chance to make a decent profit.</p>
+
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="bet_count" value="2">
+	<input type="hidden" id="base_url" value="https://arbitragecalc.com/">
+	<script src="assets/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script defer src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script defer src="assets/js/perfect-scrollbar.jquery.min.js"></script>
+	<script defer src="assets/js/custom-v4.min.js" type="text/javascript"></script>
+	<script defer src="assets/js/owl.carousel.min.js"></script>
+	<!-- <script defer src="assets/js/originals/arbitrage.js" type="text/javascript"></script> -->
+	<script defer src="assets/js/arbitrage-v30.min.js" type="text/javascript"></script>
+	<script src="assets/js/detect.min.js"></script>
+	<script>
+		//check input value for only number
+		function isNumberKey(evt, decimal = true) {
+			var charCode = (evt.which) ? evt.which : evt.keyCode;
+			// Added to allow decimal, period, or delete
+			if (decimal && (charCode == 110 || charCode == 190 || charCode == 46))
+				return true;
+
+			if (charCode == 13/*enter*/)
+				$('#submit_arbitrage').click();
+
+			if (charCode > 31 && (charCode < 48/*1*/ || charCode > 57/*9*/))
+				return false;
+
+			return true;
+		} // isNumberKey
+
+		/*Perfect Scrollbar*/
+		$('.dropdown-toggle').click(function () {
+			setTimeout(function () { $('.dropdown-menu').perfectScrollbar(); }, 5);
+		});
+		// $('#quick-scroll').perfectScrollbar();
+
+		// Media queries with Accordion
+		(function ($) {
+			function mediaSize() {
+				if (window.matchMedia('(max-width:1024px)').matches) {
+					$(function () {
+						$('.accordion-block ul li > .title').click(function (j) {
+							var dropDown = $(this).closest('.accordion-block ul li').find('.acc-content');
+							$(this).closest('.accordion-block').find('.acc-content').not(dropDown).slideUp();
+							if ($(this).hasClass('active')) {
+								$(this).removeClass('active');
+							} else {
+								$(this).closest('.accordion-block').find('.title.active').removeClass('active');
+								$(this).addClass('active');
+							}
+							dropDown.stop(false, true).slideToggle();
+							j.preventDefault();
+						});
+					});
+					$(".acc-content").removeAttr('style');
+				} else {
+					$(".acc-content").removeAttr('style');
+					$('.accordion-block ul li > .title').removeClass("active");
+				}
+			};
+			mediaSize();
+			window.addEventListener('resize', mediaSize, false);
+		})(jQuery);
+		// Copy Code Tooltip
+		$(document).on("click", ".copy-code", function () {
+			// $(this).children('.copy-tooltip').fadeIn('');
+			var url = document.getElementById('copy_content');
+			//console.log(url.value)
+			var text = url.value;
+			url.select();
+			navigator.clipboard.writeText(text);
+			document.execCommand("copy");
+			if (text != '') {
+				$(this).html('<i class="fa fa-file-o"></i> <span>Copied!</span>');
+			}
+			setTimeout(function () {
+				// $('.copy-tooltip').fadeOut('');
+			}, 800);
+		});
+	</script>
+</body>
+
+</html>
