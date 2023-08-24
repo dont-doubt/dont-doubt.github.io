@@ -2,5 +2,5 @@
 This is a drawer for custom websites
 
 # Available websites:
-* https://dont-doubt.github.io/tetris
-* https://dont-doubt.github.io/arbitrage ([original source](https://arbitragecalc.com/))
+* [Tetris](https://dont-doubt.github.io/tetris)
+* [Arbitrage Calculator](https://dont-doubt.github.io/arbitrage) (original source - [https://arbitragecalc.com/](https://arbitragecalc.com/))
