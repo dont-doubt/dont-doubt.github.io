@@ -4,15 +4,15 @@ function isPrime(num) {
   }
   return num > 1
 }
-  
+
 function primesInRange(n, m) {
   let primes = []
-  for (let i = n; i <= m; i++) {
+  for (let i = Math.max(n, 1); i <= m; i++) {
     if (isPrime(i)) primes.push(i)
   }
   return primes
 }
-  
+
 let n = ~~prompt("Введите N (от)")
 let m = ~~prompt("Введите M (до)")
 if (m < n) [m, n] = [n, m]
