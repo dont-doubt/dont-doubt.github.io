@@ -29,7 +29,7 @@ function runCode() {
 }
 
 function clearConsole() {
-  // console.clear()
+  console.clear()
   const elem = document.getElementById('_console')
   if (elem) elem.innerText = ''
 }
@@ -54,16 +54,16 @@ function open({title, description, folder, js, displayJs, displayHtml}) {
         </div>
         <iframe class="w-full h-96 bg-white" src="tasks/${folder}/index.html"></iframe>
       </div>
-      <pre class="w-full bg-gray-800 text-white font-mono mt-4 py-3 px-4 rounded-xl shadow-xl mb-3 break-words whitespace-pre-wrap">${displayHtml}</pre>
+      <pre class="w-full bg-gray-800 text-white font-mono mt-4 py-3 px-4 rounded-xl shadow-xl mb-3 break-words">${displayHtml}</pre>
     ` : ''}
     ${displayJs ? `
-      <h3 class="font-medium ml-3 mb-0.5 text-lg text-gray-900/90">Код:</h3>
-      <pre class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl mb-3 break-words whitespace-pre-wrap">${displayJs}</pre>
+      <!--<h3 class="font-medium ml-3 mb-0.5 text-lg text-gray-900/90">Код:</h3>-->
+      <pre class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl mb-3 break-words">${displayJs}</pre>
     ` : ''}
     
     ${js ? `
       <h3 class="font-medium ml-3 mb-0.5 text-lg text-gray-900/90">Консоль:</h3>
-      <div id="_console" class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl min-h-5">
+      <div id="_console" class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl min-h-5 break-words">
         <!-- Insertments -->
       </div>
       <button id="_run" class="mt-3 transition-all select-none cursor-pointer px-5 py-3 text-base font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-xl hover:bg-blue-800">
@@ -85,19 +85,28 @@ function throwError(info) {
   throw Error(info)
 }
 
-async function addCard({folder, title = folder, description}) {
-  if (!folder) throwError('No folder provided')
+async function createCard({folder, name, title, description}) {
+  if (!folder && !name) throwError('No folder or name provided')
+  let htmlFile, jsFile
+  if (name) {
+    htmlFile = `${name}.html`
+    jsFile = `${name}.js`
+    if (!title) title = `Задание ${name}`
+  } else {
+    htmlFile = `${folder}/index.html`
+    jsFile = `${folder}/script.js`
+    if (!title) title = `Задание ${folder}`
+  }
 
   async function fetchFile(file) {
     try {
-      const res = await fetch(`tasks/${folder}/${file}`)
+      const res = await fetch(`tasks/${file}`)
       return res.ok ? await res.text() : null
     } catch (e) {
       return null
     }
   }
-  const [html, js] = await Promise.all([fetchFile('index.html'), fetchFile('script.js')])
-  console.log(html, js)
+  const [html, js] = await Promise.all([fetchFile(htmlFile), fetchFile(jsFile)])
 
   const displayJs = js && hljs.highlight(js.trim(), {
     language: 'js'
@@ -118,10 +127,12 @@ async function addCard({folder, title = folder, description}) {
     ${description ? `<p class="line-clamp-3">${description}</p>` : ''}
   </div>
   `
-  cardsElem.appendChild(div)
-  if (!addedFirst) {
-    addedFirst = true
-    onClick()
+  return () => {
+    cardsElem.appendChild(div)
+    if (!addedFirst) {
+      addedFirst = true
+      onClick()
+    }
   }
 }
 
@@ -147,8 +158,6 @@ async function addCard({folder, title = folder, description}) {
 })();
 
 (async () => {
-  for (const card of tasks) {
-    await addCard(card)
-  }
+  (await Promise.all(tasks.map(t => createCard(t)))).forEach(f => f())
   clearConsole()
 })();
