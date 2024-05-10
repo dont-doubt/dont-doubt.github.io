@@ -58,7 +58,7 @@ function open({title, description, folder, js, displayJs, displayHtml}) {
     ` : ''}
     ${displayJs ? `
       <!--<h3 class="font-medium ml-3 mb-0.5 text-lg text-gray-900/90">Код:</h3>-->
-      <pre class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl mb-3 break-words">${displayJs}</pre>
+      <pre class="w-full bg-gray-800 text-gray-200 font-mono py-3 px-4 rounded-xl shadow-xl mb-3 break-words">${displayJs}</pre>
     ` : ''}
     
     ${js ? `
