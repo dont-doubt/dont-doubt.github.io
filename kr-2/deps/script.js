@@ -63,9 +63,7 @@ function open({title, description, folder, js, displayJs, displayHtml}) {
     
     ${js ? `
       <h3 class="font-medium ml-3 mb-0.5 text-lg text-gray-900/90">Консоль:</h3>
-      <div id="_console" class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl min-h-5 break-all whitespace-pre-wrap">
-        <!-- Insertments -->
-      </div>
+      <div id="_console" class="w-full bg-gray-800 text-white font-mono py-3 px-4 rounded-xl shadow-xl min-h-5 break-all whitespace-pre-wrap"></div>
       <button id="_run" class="mt-3 transition-all select-none cursor-pointer px-5 py-3 text-base font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-xl hover:bg-blue-800">
         <svg class="w-5 h-5 text-white me-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
           <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z"/>
