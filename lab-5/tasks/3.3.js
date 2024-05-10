@@ -11,6 +11,6 @@ const transpose = m => m[0].map((x, i) => m.map(x => x[i]));
 
 const transposed = transpose(matrix)
 for (const l of transposed) 
-  l.sort()
+  l.sort((a, b) => a - b)
 for (const j of transpose(transposed)) 
   console.log(JSON.stringify(j))

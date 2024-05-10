@@ -12,6 +12,6 @@ function sin(x) {
   return sin
 }
 
-const deg = prompt("Введите угол в градусах")
-if (isNaN(+deg)) throw Error('NaN')
+const deg = +prompt("Введите угол в градусах")
+if (isNaN(deg)) throw Error('NaN')
 console.log(`sin(${deg}) = ${sin(deg * (Math.PI / 180))}`)

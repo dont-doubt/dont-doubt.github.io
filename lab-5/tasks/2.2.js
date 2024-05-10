@@ -12,6 +12,6 @@ function cos(x) {
   return cos
 }
 
-const deg = prompt("Введите угол в градусах")
-if (isNaN(+deg)) throw Error('NaN')
+const deg = +prompt("Введите угол в градусах")
+if (isNaN(deg)) throw Error('NaN')
 console.log(`cos(${deg}) = ${cos(deg * (Math.PI / 180))}`)
