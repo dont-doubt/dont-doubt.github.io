@@ -26,7 +26,7 @@ function runCode() {
 }
 
 function clearConsole() {
-  console.clear()
+  // console.clear()
   safeElementById('_console', e => e.innerText = '')
 }
 
