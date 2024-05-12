@@ -156,22 +156,40 @@ async function createCard({folder, name, title, description, once}) {
   });
 })();
 
-(async () => {
+(() => {
+  async function resolve() {
+    (await Promise.all(tasks.map(t => createCard(t)))).forEach(f => f())
+    clearConsole()
+  }
+  
   if (styles) {
     for (const url of styles) {
       const el = document.createElement('link');
-      el.setAttribute('rel', 'stylesheet')
-      el.setAttribute('href', url);
+      el.rel = 'stylesheet'
+      el.href = url
       document.head.appendChild(el);
     }
   }
   if (scripts) {
-    for (const url of scripts) {
-      const el = document.createElement('script');
-      el.setAttribute('src', url);
+    function loader(src, handler) {
+      const el = document.createElement("script");
+      el.src = src;
+      el.onload = el.onreadystatechange = () => {
+        el.onload = el.onreadystatechange = null;
+        handler();
+      }
       document.head.appendChild(el);
     }
+    (function run() {
+      if (scripts.length !== 0) {
+        loader(scripts.shift(), run)
+      } else {
+        // noinspection JSIgnoredPromiseFromCall
+        resolve()
+      }
+    })();
+  } else {
+    // noinspection JSIgnoredPromiseFromCall
+    resolve()
   }
-  (await Promise.all(tasks.map(t => createCard(t)))).forEach(f => f())
-  clearConsole()
 })();
