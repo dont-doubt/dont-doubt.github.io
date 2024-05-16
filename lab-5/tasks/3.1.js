@@ -11,5 +11,5 @@ for (const i in matrix) {
   for (const j in matrix[i]) {
     matrix[i][j] = matrix[i][j] * (i + 1)
   }
-  console.log(JSON.stringify(matrix[i]));
+  console.log(matrix[i]);
 }

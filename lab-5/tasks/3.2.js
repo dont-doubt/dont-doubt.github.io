@@ -10,5 +10,5 @@ const matrix = [
 
 for (const i in matrix) {
   matrix[i].sort((a, b) => a - b)
-  console.log(JSON.stringify(matrix[i]));
+  console.log(matrix[i]);
 }

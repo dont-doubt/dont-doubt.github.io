@@ -26,7 +26,7 @@ function runCode() {
 }
 
 function clearConsole() {
-  // console.clear()
+  console.clear()
   safeElementById('_console', e => e.innerText = '')
 }
 
@@ -74,19 +74,15 @@ function open({title, description, js, displayJs, html, displayHtml, once}) {
   updateHeight()
 }
 
-let addedFirst
-
-function throwError(info) {
-  throw Error(info)
-}
-
 function safeElementById(id, fn) {
   const elem = document.getElementById(id)
   if (elem) fn(elem)
 }
 
+let isAddedFirst = false
+
 async function createCard({folder, name, title, description, once}) {
-  if (!folder && !name) throwError('No folder or name provided')
+  if (!folder && !name) throw Error('No folder or name provided')
   let htmlFile, jsFile
   if (name) {
     htmlFile = `${name}.html`
@@ -128,22 +124,43 @@ async function createCard({folder, name, title, description, once}) {
   `
   return () => {
     cardsElem.appendChild(div)
-    if (!addedFirst) {
-      addedFirst = true
+    if (!isAddedFirst) {
+      isAddedFirst = true
       open(params)
     }
   }
 }
 
 (function redirectOutput() {
-  ['log','warn','error'].forEach((fn) => {
+  function joinArgs(args, fn) {
+    let addSpace = false
+    return args.reduce((acc, curr) => {
+      if (addSpace) {
+        acc += ' '
+      } else {
+        addSpace = true
+      }
+      if (typeof curr === 'object') {
+        if (fn === 'error' && curr.message) {
+          acc += JSON.stringify(curr.message)
+        } else {
+          acc += JSON.stringify(curr)
+        }
+      } else {
+        acc += curr
+      }
+      return acc
+    }, '')
+  }
+
+  ['log', 'warn', 'error'].forEach((fn) => {
     console[fn] = (function (log) {
       return function (...text) {
         log(...text)
         const elem = document.getElementById('_console')
         if (!elem) return
         const span = document.createElement('span')
-        span.innerText = text.join(' ')
+        span.innerText = joinArgs(text, fn)
         if (fn === 'log') span.classList.add("text-gray-100")
         else if (fn === 'warn') span.classList.add("text-red-200", "bg-red-500/20")
         else if (fn === 'error') span.classList.add("text-red-500", "bg-red-400/20")
@@ -162,7 +179,7 @@ async function createCard({folder, name, title, description, once}) {
     clearConsole()
   }
 
-  if (styles) {
+  if (typeof styles !== 'undefined') {
     for (const url of styles) {
       const el = document.createElement('link');
       el.rel = 'stylesheet'
@@ -170,7 +187,7 @@ async function createCard({folder, name, title, description, once}) {
       document.head.appendChild(el);
     }
   }
-  if (scripts) {
+  if (typeof scripts !== 'undefined') {
     function loader(src, handler) {
       const el = document.createElement("script");
       el.src = src;
