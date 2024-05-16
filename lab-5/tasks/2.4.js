@@ -1,16 +1,15 @@
 function toPrimes(n) {
-  const factors = []
+  const primes = []
   let i = 2
   while (i <= n) {
     if (n % i === 0) {
-      factors.push(i)
+      primes.push(i)
       n /= i
-    }
-    else {
+    } else {
       i++
     }
   }
-  return factors
+  return primes
 }
 
 const n = ~~prompt("Введите N")
